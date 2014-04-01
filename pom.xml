@@ -17,8 +17,8 @@
      </dependency>
      <dependency>
           <groupId>org.scalatest</groupId>
-          <artifactId>scalatest_2.10</artifactId>
-          <version>2.1.2</version>
+          <artifactId>scalatest_2.9.3</artifactId>
+          <version>1.9.2</version>
           <scope>test</scope>
      </dependency>
   </dependencies>
@@ -32,7 +32,7 @@
         <artifactId>maven-scala-plugin</artifactId>
         <version>2.15.2</version>
         <configuration>
-          <scalaVersion>2.10.3</scalaVersion>
+          <scalaVersion>2.9.3</scalaVersion>
         </configuration>
         <executions>
             <execution>
