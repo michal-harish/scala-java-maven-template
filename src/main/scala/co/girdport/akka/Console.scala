@@ -5,22 +5,24 @@ import akka.actor.ActorSelection.toScala
 import akka.actor.Actor
 import akka.actor.Props
 
-object Console extends App with ManagedNode {
+object Console extends Node("localhost") with App {
 
-  init("localhost")
-  Thread.sleep(1000)
-  val inputProcessor = system.actorOf(Props[UserInputProcessor])
+  new StandaloneNode
+  new StandaloneNode
+  new StandaloneNode
+  new StandaloneNode
+
+  val cli = system.actorOf(Props[InteractorCLI])
 
   val stdInReader = new Thread {
     override def run() {
       val i = Source.stdin.getLines
-      print("\n>")
-      while (!system.isTerminated && i.hasNext) {
+      while (!system.isTerminated) {
+        print("\n>")
         val line = i.next
         if (!(line isEmpty)) {
-            inputProcessor ! line
-            Thread.sleep(250)
-            println("\n")
+          cli ! Input(line)
+          Thread.sleep(500)
         }
         print(">")
       }
@@ -28,13 +30,13 @@ object Console extends App with ManagedNode {
   } start
 }
 
-class UserInputProcessor extends Actor {
+case class Input(val line: String)
+
+class InteractorCLI extends Actor {
   val manager = context.actorFor("/user/node-manager")
   override def receive = {
-      case "exit" => manager ! new UserCommand(Shutdown)
-      case "config" => manager ! new UserCommand(ShowConfig)
-      case "describe" => manager ! new UserCommand(Describe)
-      case _ => manager ! new UserCommand(UnknownCommand)
+    case Input(textCommand) => manager ! new UserCommand(textCommand)
+    case Info(line) => println(sender.path + ": " + line)
   }
 }
 
