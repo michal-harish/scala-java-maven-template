@@ -1,4 +1,4 @@
-package co.girdport.akka
+package co.girdport.akkazoo
 
 import akka.actor.Actor
 import akka.actor.ActorRef
@@ -21,6 +21,7 @@ object DistributedActorSelection {
     }
   }
 }
+
 trait ScalaDistributedActorSelection {
   this: DistributedActorSelection ⇒
 

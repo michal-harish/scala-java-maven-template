@@ -1,10 +1,8 @@
-package co.girdport.akka
+package co.girdport.akkazoo
 
 import scala.collection.JavaConverters.asScalaBufferConverter
-
 import org.I0Itec.zkclient.IZkChildListener
 import org.I0Itec.zkclient.ZkClient
-
 import akka.actor.Actor
 import akka.actor.ActorContext
 import akka.actor.ActorRef
@@ -13,14 +11,21 @@ import akka.actor.ActorSelection.toScala
 import akka.actor.ExtendedActorSystem
 import akka.actor.Props
 import akka.actor.Terminated
+import co.gridport.akkazoo.example.MessageGenerator
+import co.gridport.akkazoo.example.ExternalMessage
 
-class NodeManager extends Actor {
+class AkkazooNodeManager extends Actor {
   import context._
   val hostPort = system.asInstanceOf[ExtendedActorSystem].provider.getDefaultAddress.hostPort
   var peerz: DistributedActorSelection = null //FIXME no null
   val peerListWatcher = actorOf(Props[PeerListWatcher], name = "peer-list-watcher")
 
   context watch peerListWatcher
+
+  override def preStart {
+    context.actorOf(Props[MessageGenerator], name="message-generator")
+  }
+
   def receive = {
     //user interactions
     case UserCommand(instruction) => peerz forward instruction

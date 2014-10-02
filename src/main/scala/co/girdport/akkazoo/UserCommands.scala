@@ -1,4 +1,4 @@
-package co.girdport.akka
+package co.girdport.akkazoo
 
 import akka.actor.ActorContext
 import akka.actor.ExtendedActorSystem
