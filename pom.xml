@@ -22,6 +22,11 @@
             <version>2.3.6</version>
         </dependency>
         <dependency>
+            <groupId>org.clapper</groupId>
+            <artifactId>grizzled-slf4j_2.10</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+        <dependency>
             <groupId>com.101tec</groupId>
             <artifactId>zkclient</artifactId>
             <version>0.4</version>
@@ -38,9 +43,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.clapper</groupId>
-            <artifactId>grizzled-slf4j_2.10</artifactId>
-            <version>1.0.2</version>
+            <groupId>org.scalamock</groupId>
+            <artifactId>scalamock-scalatest-support_2.10</artifactId>
+            <version>3.1.4</version>
         </dependency>
     </dependencies>
 
@@ -54,8 +59,8 @@
                     <scalaVersion>2.10.3</scalaVersion>
                 </configuration>
                 <executions>
-                <execution>
-                    <id>scala-compile-first</id>
+                    <execution>
+                        <id>scala-compile-first</id>
                         <phase>process-resources</phase>
                         <goals>
                             <goal>add-source</goal>
