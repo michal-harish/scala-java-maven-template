@@ -67,6 +67,9 @@
             <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
             <junitxml>.</junitxml>
             <filereports>WDF TestSuite.txt</filereports>
+            <jvmArgs>
+              <jvmArg>-Xmx1536m</jvmArg>
+            </jvmArgs>
           </configuration>
           <executions>
             <execution>
@@ -77,9 +80,6 @@
               </goals>
             </execution>
           </executions>
-          <jvmArgs>
-              <jvmArg>-Xmx1536m</jvmArg>
-          </jvmArgs>
       </plugin>
       <plugin>
           <groupId>org.apache.maven.plugins</groupId>
